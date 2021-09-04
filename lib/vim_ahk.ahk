@@ -14,6 +14,7 @@
 #Include %A_LineFile%\..\vim_setting.ahk
 #Include %A_LineFile%\..\vim_state.ahk
 #Include %A_LineFile%\..\vim_tooltip.ahk
+#Include %A_LineFile%\..\custom_commands.ahk
 
 ; Key Bindings
 #Include %A_LineFile%\..\vim_bind.ahk
