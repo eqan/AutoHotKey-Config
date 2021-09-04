@@ -130,9 +130,11 @@ Return
 
 ; Functions for volume keys
 
-!p:: Send {Volume_Up}
-!o:: Send {Volume_Down}
+!p::Send {Volume_Up}
+!o::Send {Volume_Down}
 !i::Send {Volume_Mute}
 return
 
+; Functions for maximizing, minimzing application
 #f::WinMaximize, A
+#m::WinMinimize, A
