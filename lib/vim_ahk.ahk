@@ -2,8 +2,8 @@
 #Include %A_LineFile%\..\util\vim_ahk_setting.ahk
 #Include %A_LineFile%\..\util\vim_ime.ahk
 #Include %A_LineFile%\..\util\AutoCorrect.ahk
-#Include %A_LineFile%\..\util\youtube_hotkeys_for_vlc.ahk
-;#Include %A_LineFile%\..\util\davebrny.ini
+#Include %A_LineFile%\..\util\YT2VLC.ahk
+#Include %A_LineFile%\..\util\Symbols.ahk
 
 ; Classes, Functions
 #Include %A_LineFile%\..\vim_about.ahk
@@ -230,7 +230,6 @@ class VimAhk{
 
   SetDefaultActiveWindows(){
     DefaultList := ["ahk_exe Evernote.exe"  ; Evernote
-                  , "ahk_exe brave.exe"  ; Brave
                   , "ahk_exe metaeditor.exe"  ; Meta Editor
                   , "ahk_exe notepad.exe"   ; NotePad
                   , "OneNote"               ; OneNote at Windows 10
@@ -247,7 +246,7 @@ class VimAhk{
                   , "ahk_exe wordpad.exe"   ; WordPad
                   , "ahk_exe Q-Dir_x64.exe" ; Q-dir
                   , "ahk_exe Q-Dir.exe"]    ; Q-dir
-
+                  
     DefaultGroup := ""
     For i, v in DefaultList
     {
