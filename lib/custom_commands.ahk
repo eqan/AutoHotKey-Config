@@ -15,7 +15,9 @@ KeyWait, q, T0.01
 return
 
 ; Function to Call the brave browser
-#b::Run Brave
+#b::
+	Run,"C:\Users\Eqan Ahmad\AppData\Local\BraveSoftware\Brave-Browser\Application\brave.exe"
+	return
 
 ; Function to Call the word
 #w::
