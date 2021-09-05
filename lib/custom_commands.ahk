@@ -132,9 +132,9 @@ Return
 
 ; Functions for volume keys
 
-!p::Send {Volume_Up}
-!o::Send {Volume_Down}
-!i::Send {Volume_Mute}
+!^p::Send {Volume_Up}
+!^o::Send {Volume_Down}
+!^i::Send {Volume_Mute}
 return
 
 ; Functions for maximizing, minimzing application
@@ -150,5 +150,14 @@ return
 #\::send !{tab}{tab up}      ; toggle between this window and the last
 #.::send #{tab}              ; windows 10 task switcher
 
-!#j::send ^#{left}           ; switch to previous virtual desktop (windows 10)
-!#k::send ^#{right}          ; switch to next virtual desktop
+^#Space::send ^#{left}           ; switch to previous virtual desktop (windows 10)
+#Space::send ^#{right}          ; switch to next virtual desktop
+
+; Hide or show desktop icons
+#^h::
+	ControlGet, HWND, Hwnd,, SysListView321, ahk_class WorkerW
+	; Toggle between displaying and hiding the desktop icons
+	If DllCall("IsWindowVisible", UInt, HWND)
+		WinHide, ahk_id %HWND%
+	Else
+		WinShow, ahk_id %HWND%
