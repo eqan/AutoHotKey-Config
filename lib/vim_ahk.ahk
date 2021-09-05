@@ -231,6 +231,8 @@ class VimAhk{
   SetDefaultActiveWindows(){
     DefaultList := ["ahk_exe Evernote.exe"  ; Evernote
                   , "ahk_exe metaeditor.exe"  ; Meta Editor
+                  , "ahk_exe WindowsTerminal.exe"  ; Windows Terminal
+                  , "ahk_exe powershell.exe"  ; Windows Terminal
                   , "ahk_exe notepad.exe"   ; NotePad
                   , "OneNote"               ; OneNote at Windows 10
                   , "ahk_exe onenote.exe"   ; OneNote Desktop
