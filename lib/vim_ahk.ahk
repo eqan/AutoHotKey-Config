@@ -1,6 +1,7 @@
 ﻿; Utilities
 #Include %A_LineFile%\..\util\vim_ahk_setting.ahk
 #Include %A_LineFile%\..\util\vim_ime.ahk
+#Include %A_LineFile%\..\util\AutoCorrect.ahk
 
 ; Classes, Functions
 #Include %A_LineFile%\..\vim_about.ahk
