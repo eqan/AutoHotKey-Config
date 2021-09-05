@@ -1,4 +1,4 @@
-# vim_ahk
+# Auto Hot Key Config
 
 Setting file/exe file of AutoHotkey for Vim emulation.
 
