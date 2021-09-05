@@ -138,3 +138,15 @@ return
 ; Functions for maximizing, minimzing application
 #f::WinMaximize, A
 #m::WinMinimize, A
+
++#j::send #{left}{Lwin up}   ; snap window left
++#k::send #{right}{Lwin up}  ; snap window right
+
+^#a::send #+{left}           ; move window to another monitor
+^#d::send !{esc}             ; cycle through all windows
+
+#\::send !{tab}{tab up}      ; toggle between this window and the last
+#.::send #{tab}              ; windows 10 task switcher
+
+!#j::send ^#{left}           ; switch to previous virtual desktop (windows 10)
+!#k::send ^#{right}          ; switch to next virtual desktop
