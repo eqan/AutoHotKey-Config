@@ -1,7 +1,7 @@
 ﻿; Utilities
 #Include %A_LineFile%\..\util\vim_ahk_setting.ahk
 #Include %A_LineFile%\..\util\vim_ime.ahk
-#Include %A_LineFile%\..\util\AutoCorrect.ahk
+;#Include %A_LineFile%\..\util\AutoCorrect.ahk
 #Include %A_LineFile%\..\util\YT2VLC.ahk
 #Include %A_LineFile%\..\util\Symbols.ahk
 
@@ -24,11 +24,11 @@
 
 class VimAhk{
   __About(){
-    this.About.Version := "v0.9.2"
+    this.About.Version := "v0.9.3"
     this.About.Date := "21/Aug/2021"
-    this.About.Author := "rcmdnk"
-    this.About.Description := "Vim emulation with AutoHotkey, everywhere in Windows."
-    this.About.Homepage := "https://github.com/rcmdnk/vim_ahk"
+    this.About.Author := "Eqan Ahmad"
+    this.About.Description := "Vim emulation with AutoHotkey and other superb gists"
+    this.About.Homepage := "https://github.com/eqan/AutoHotKey-Config"
     this.Info["VimHomepage"] := this.About.Homepage
   }
 

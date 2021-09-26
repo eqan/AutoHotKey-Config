@@ -12,26 +12,8 @@ $b::
      If ErrorLevel {                                    	; timeout, so long press
      	Send, {U+2022}    ; • bullet point
         KeyWait, b
-    } Else                                                	; otherwise...
-        Send b 
-Return
-
-$e::                                          
-    KeyWait, e, T0.5                          
-     If ErrorLevel {                                  
-     	Send, eqan.ahmad123@gmail.com
-        KeyWait, e
-    } Else                                           
-        Send e 
-Return
-
-$h::                                          
-    KeyWait, h, T0.5                          
-     If ErrorLevel {                                
-     	Send, {U+2764}    ; ❤ heart
-        KeyWait, h
     } Else                                         
-        Send h 
+        Send  b
 Return
 
 $q::                                          

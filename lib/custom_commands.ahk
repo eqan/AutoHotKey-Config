@@ -1,4 +1,16 @@
+; Hide or show desktop icons
+#h::
+  ControlGet, HWND, Hwnd,, SysListView321, ahk_class Progman
+  If HWND =
+  ControlGet, HWND, Hwnd,, SysListView321, ahk_class WorkerW
+  If DllCall("IsWindowVisible", UInt, HWND)
+  WinHide, ahk_id %HWND%
+  Else
+  WinShow, ahk_id %HWND%
+  Return
+
 ; Function to run terminal as admin and in maximized form
+
 #x::
   try {
     Run *RunAs wt, , max
@@ -15,6 +27,7 @@ KeyWait, q, T0.01
 return
 
 ; Function to Call the brave browser
+
 #b::
 	Run,"C:\Users\Eqan Ahmad\AppData\Local\BraveSoftware\Brave-Browser\Application\brave.exe"
 	return
@@ -153,11 +166,3 @@ return
 ^#Space::send ^#{left}           ; switch to previous virtual desktop (windows 10)
 #Space::send ^#{right}          ; switch to next virtual desktop
 
-; Hide or show desktop icons
-#^h::
-	ControlGet, HWND, Hwnd,, SysListView321, ahk_class WorkerW
-	; Toggle between displaying and hiding the desktop icons
-	If DllCall("IsWindowVisible", UInt, HWND)
-		WinHide, ahk_id %HWND%
-	Else
-		WinShow, ahk_id %HWND%
