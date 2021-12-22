@@ -3,7 +3,7 @@
 #Include %A_LineFile%\..\util\vim_ime.ahk
 ;#Include %A_LineFile%\..\util\AutoCorrect.ahk
 #Include %A_LineFile%\..\util\YT2VLC.ahk
-#Include %A_LineFile%\..\util\Symbols.ahk
+;#Include %A_LineFile%\..\util\Symbols.ahk
 
 ; Classes, Functions
 #Include %A_LineFile%\..\vim_about.ahk
