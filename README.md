@@ -1,4 +1,6 @@
-# Auto Hot Key Config
+# Windows Automation
+
+Contains vim-keybindings and replicating workflows of a tiling window manager in linux and shifting it to windows, using automated keybindings etc, also not compromising speed as well.
 
 Setting file/exe file of AutoHotkey for Vim emulation.
 
