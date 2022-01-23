@@ -34,8 +34,12 @@ return
 
 ; Function to Call the word
 #w::
-	Run,"C:\Program Files (x86)\Microsoft Office\root\Office16\WINWORD.EXE" 
-	return
+  try {
+    Run *RunAs winword, , max
+  } catch {
+    MsgBox, Could not open winword.
+  }
+Return
 
 ; Function to Call the Color Picker
 #i::
@@ -166,3 +170,8 @@ return
 ^#Space::send ^#{left}           ; switch to previous virtual desktop (windows 10)
 #Space::send ^#{right}          ; switch to next virtual desktop
 
+; Suspend/restart
+#If
+^!+s::
+  Vim.State.ToggleEnabled()
+Return
