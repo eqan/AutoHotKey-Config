@@ -20,16 +20,23 @@
 Return
 
 ; Function to Quit an application
-#q::
-KeyWait, q, T0.01
-	If ErrorLevel
-		PostMessage, 0x112, 0xF060,,, A ; Using PostMessage  to close a window
-return
+; #q::
+; KeyWait, q, T0.01
+; 	If ErrorLevel
+; 		PostMessage, 0x112, 0xF060,,, A ; Using PostMessage  to close a window
+; return
+
+; Function to Call Live Draw
+
+#\::
+	Run,"D:\Softwares\Live Draw\LiveDraw.exe"
+	return
+
 
 ; Function to Call the brave browser
 
 #b::
-	Run,"C:\Users\Eqan Ahmad\AppData\Local\BraveSoftware\Brave-Browser\Application\brave.exe"
+	Run,"C:\Program Files (x86)\BraveSoftware\Brave-Browser-Nightly\Application\brave.exe"
 	return
 
 ; Function to Call the word
@@ -99,20 +106,20 @@ active_index := 2
 Loop
 {
   
-  KeyWait, j, DT0.5
-  if !ErrorLevel
-  {
-    active_index++
-    this_window := alt_tab_list[active_index]
-    WinActivate, ahk_id %this_window%
-  }
-  if(active_index >= alt_tab_list.MaxIndex())
-  {
-    alt_tab_list := Unique_Alt_Tab_Windows()
-    active_index := 1
-  }
-} until (!GetKeyState("Alt", "P"))
-return
+   KeyWait, j, DT0.5
+   if !ErrorLevel
+   {
+     active_index++
+     this_window := alt_tab_list[active_index]
+     WinActivate, ahk_id %this_window%
+   }
+   if(active_index >= alt_tab_list.MaxIndex())
+   {
+     alt_tab_list := Unique_Alt_Tab_Windows()
+     active_index := 1
+   }
+ } until (!GetKeyState("Alt", "P"))
+ return
 
 ; Function to hide and show hidden files
 
@@ -158,17 +165,17 @@ return
 #f::WinMaximize, A
 #m::WinMinimize, A
 
-+#j::send #{left}{Lwin up}   ; snap window left
-+#k::send #{right}{Lwin up}  ; snap window right
+; +#j::send #{left}{Lwin up}   ; snap window left
+; +#k::send #{right}{Lwin up}  ; snap window right
 
-^#a::send #+{left}           ; move window to another monitor
-^#d::send !{esc}             ; cycle through all windows
+; ^#a::send #+{left}           ; move window to another monitor
+; ^#d::send !{esc}             ; cycle through all windows
 
-#\::send !{tab}{tab up}      ; toggle between this window and the last
-#.::send #{tab}              ; windows 10 task switcher
+; #\::send !{tab}{tab up}      ; toggle between this window and the last
+; #.::send #{tab}              ; windows 10 task switcher
 
-^#Space::send ^#{left}           ; switch to previous virtual desktop (windows 10)
-#Space::send ^#{right}          ; switch to next virtual desktop
+; ^#Space::send ^#{left}           ; switch to previous virtual desktop (windows 10)
+; #Space::send ^#{right}          ; switch to next virtual desktop
 
 ; Suspend/restart
 #If
