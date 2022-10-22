@@ -76,42 +76,11 @@ return
 !h:: Send !{Left}
 !l:: Send !{Right}
 
+; Change Brightness
+!;::RUN C:\Users\eqana\nircmd\nircmd.exe changebrightness 5
+!'::RUN C:\Users\eqana\nircmd\nircmd.exe changebrightness -5
 
-ChangeBrightness( ByRef brightness := 50, timeout = 1 )
-{
-  if ( brightness >= 0 && brightness <= 100 )
-  {
-    For property in ComObjGet( "winmgmts:\\.\root\WMI" ).ExecQuery( "SELECT * FROM WmiMonitorBrightnessMethods" )
-      property.WmiSetBrightness( timeout, brightness )
-  }
-  else if ( brightness > 100 )
-  {
-    brightness := 100
-  }
-  else if ( brightness < 0 )
-  {
-    brightness := 0
-  }
-}
 
-; ChangeBrightness( ByRef brightness := 50, timeout = 1 )
-; {
-;   if ( brightness >= 0 && brightness <= 100 )
-
-;     command := "wmic /NAMESPACE:\\root\wmi PATH WmiMonitorBrightnessMethods WHERE 'Active=TRUE' CALL WmiSetBrightness Brightness=" + %brightness% + "Timeout=0"
-;   exec := WshShell.Exec(command)
-;   MsgBox, exec
-;   ;Run, powershell -NoExit -Command %command%
-; }
-; else if ( brightness > 100 )
-; {
-;   brightness := 100
-; }
-; else if ( brightness < 0 )
-; {
-;   brightness := 0
-; }
-; }
 
 GetCurrentBrightNess()
 {
@@ -213,39 +182,17 @@ Return
     Return
   }
 
-  ; Variables
-  ;Increments 			:= 10 ; < lower for a more granular change, higher for larger jump in brightness
-  CurrentBrightness 	:= GetCurrentBrightNess()
-
-  ; Functions for brightness control
-  ; ^+o:: ChangeBrightness( CurrentBrightness -= Increments ) ; decrease brightness
-  ^+o:: GetCurrentBrightNess()
-  ^+p:: ChangeBrightness( CurrentBrightness += Increments ) ; increase brightness
-  ;#Numpad5::     ChangeBrightness( CurrentBrightness := 50 ) ; default
-  ;#Numpad2::     ChangeBrightness( CurrentBrightness := 100 ) ; default
 
   ; Functions for volume keys
 
-  !^p::Send {Volume_Up}
-  !^o::Send {Volume_Down}
-  !^i::Send {Volume_Mute}
+  !p::Send {Volume_Mute}
+  ![::Send {Volume_Up}
+  !]::Send {Volume_Down}
 return
 
 ; Functions for maximizing, minimzing application
 #f::WinMaximize, A
 #m::WinMinimize, A
-
-; +#j::send #{left}{Lwin up}   ; snap window left
-; +#k::send #{right}{Lwin up}  ; snap window right
-
-; ^#a::send #+{left}           ; move window to another monitor
-; ^#d::send !{esc}             ; cycle through all windows
-
-; #\::send !{tab}{tab up}      ; toggle between this window and the last
-; #.::send #{tab}              ; windows 10 task switcher
-
-; ^#Space::send ^#{left}           ; switch to previous virtual desktop (windows 10)
-; #Space::send ^#{right}          ; switch to next virtual desktop
 
 ; Suspend/restart
 #If
