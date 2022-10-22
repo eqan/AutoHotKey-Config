@@ -2,12 +2,22 @@
 #h::
   ControlGet, HWND, Hwnd,, SysListView321, ahk_class Progman
   If HWND =
-  ControlGet, HWND, Hwnd,, SysListView321, ahk_class WorkerW
+    ControlGet, HWND, Hwnd,, SysListView321, ahk_class WorkerW
   If DllCall("IsWindowVisible", UInt, HWND)
-  WinHide, ahk_id %HWND%
+    WinHide, ahk_id %HWND%
   Else
-  WinShow, ahk_id %HWND%
-  Return
+    WinShow, ahk_id %HWND%
+Return
+
+; Function to run vscode as admin and in maximized form
+
+#v::
+  try {
+    Run code, , Hide
+  } catch {
+    MsgBox, Could not obtain admin privileges.
+  }
+Return
 
 ; Function to run terminal as admin and in maximized form
 
@@ -29,15 +39,14 @@ Return
 ; Function to Call Live Draw
 
 #\::
-	Run,"D:\Softwares\Live Draw\LiveDraw.exe"
-	return
-
+  Run,"D:\Softwares\Live Draw\LiveDraw.exe"
+return
 
 ; Function to Call the brave browser
 
 #b::
-	Run,"C:\Program Files (x86)\BraveSoftware\Brave-Browser-Nightly\Application\brave.exe"
-	return
+  Run,"C:\Users\eqana\AppData\Local\BraveSoftware\Brave-Browser-Nightly\Application\brave.exe"
+return
 
 ; Function to Call the word
 #w::
@@ -50,18 +59,69 @@ Return
 
 ; Function to Call the Color Picker
 #i::
-	Run,"C:\Users\Eqan Ahmad\Desktop\jcpicker.exe"
-	return
+  Run,"C:\Users\Eqan Ahmad\Desktop\jcpicker.exe"
+return
 
 ; Function to Call the live draw
 #o::
-	Run,"E:\Softwares\Live Draw\livedraw_0.1.0_beta.exe"
-	return
+  Run,"E:\Softwares\Live Draw\livedraw_0.1.0_beta.exe"
+return
 
 ; Function to Call the task manager
 #t::
-	Run,"C:\WINDOWS\system32\Taskmgr.exe"
-	return
+  Run,"C:\WINDOWS\system32\Taskmgr.exe"
+return
+
+; Keys for windows navigation
+!h:: Send !{Left}
+!l:: Send !{Right}
+
+
+ChangeBrightness( ByRef brightness := 50, timeout = 1 )
+{
+  if ( brightness >= 0 && brightness <= 100 )
+  {
+    For property in ComObjGet( "winmgmts:\\.\root\WMI" ).ExecQuery( "SELECT * FROM WmiMonitorBrightnessMethods" )
+      property.WmiSetBrightness( timeout, brightness )
+  }
+  else if ( brightness > 100 )
+  {
+    brightness := 100
+  }
+  else if ( brightness < 0 )
+  {
+    brightness := 0
+  }
+}
+
+; ChangeBrightness( ByRef brightness := 50, timeout = 1 )
+; {
+;   if ( brightness >= 0 && brightness <= 100 )
+
+;     command := "wmic /NAMESPACE:\\root\wmi PATH WmiMonitorBrightnessMethods WHERE 'Active=TRUE' CALL WmiSetBrightness Brightness=" + %brightness% + "Timeout=0"
+;   exec := WshShell.Exec(command)
+;   MsgBox, exec
+;   ;Run, powershell -NoExit -Command %command%
+; }
+; else if ( brightness > 100 )
+; {
+;   brightness := 100
+; }
+; else if ( brightness < 0 )
+; {
+;   brightness := 0
+; }
+; }
+
+GetCurrentBrightNess()
+{
+  command := "Get-Ciminstance -Namespace root/WMI -ClassName WmiMonitorBrightness | grep 'CurrentBrightness'"
+  MsgBox % temp := ComObjCreate("WScript.Shell").Exec(command).StdOut.ReadAll()
+  ; exec := WshShell.Exec(%command%)
+  currentBrightness := RegExReplace(exec, "\D")
+  ; MsgBox, %exec%
+  return currentBrightness
+}
 
 ; Function returns list of windows
 Unique_Alt_Tab_Windows()
@@ -73,7 +133,6 @@ Unique_Alt_Tab_Windows()
   {
     this_hwnd := window_list%A_Index%
 
-    
     WinGet, this_style, Style, ahk_id %this_hwnd%
     if (this_style & 0x10000000) && (this_style & 0x10000) ; 0x10000000 is WS_VISIBLE. 0x10000 is WS_MAXIMIZEBOX
     {
@@ -99,66 +158,77 @@ Unique_Alt_Tab_Windows()
 #IfWinActive
 #j::
 
-alt_tab_list := Unique_Alt_Tab_Windows()
-initial_window := alt_tab_list[2]
-WinActivate, ahk_id %initial_window%
-active_index := 2
-Loop
-{
-  
-   KeyWait, j, DT0.5
-   if !ErrorLevel
-   {
-     active_index++
-     this_window := alt_tab_list[active_index]
-     WinActivate, ahk_id %this_window%
-   }
-   if(active_index >= alt_tab_list.MaxIndex())
-   {
-     alt_tab_list := Unique_Alt_Tab_Windows()
-     active_index := 1
-   }
- } until (!GetKeyState("Alt", "P"))
- return
+  alt_tab_list := Unique_Alt_Tab_Windows()
+  initial_window := alt_tab_list[2]
+  WinActivate, ahk_id %initial_window%
+  active_index := 2
+  Loop
+  {
+
+    KeyWait, j, DT0.5
+    if !ErrorLevel
+    {
+      active_index++
+      this_window := alt_tab_list[active_index]
+      WinActivate, ahk_id %this_window%
+    }
+    if(active_index >= alt_tab_list.MaxIndex())
+    {
+      alt_tab_list := Unique_Alt_Tab_Windows()
+      active_index := 1
+    }
+  } until (!GetKeyState("Alt", "P"))
+return
 
 ; Function to hide and show hidden files
 
 ^+2::GoSub,CheckActiveWindow
 CheckActiveWindow:
-ID := WinExist("A")
-WinGetClass,Class, ahk_id %ID%
-WClasses := "CabinetWClass ExploreWClass"
-IfInString, WClasses, %Class%
-  GoSub, Toggle_HiddenFiles_Display
+  ID := WinExist("A")
+  WinGetClass,Class, ahk_id %ID%
+  WClasses := "CabinetWClass ExploreWClass"
+  IfInString, WClasses, %Class%
+    GoSub, Toggle_HiddenFiles_Display
 Return
 
 Toggle_HiddenFiles_Display:
-RootKey = HKEY_CURRENT_USER
-SubKey  = Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+  RootKey = HKEY_CURRENT_USER
+  SubKey = Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
 
-RegRead, HiddenFiles_Status, % RootKey, % SubKey, Hidden
+  RegRead, HiddenFiles_Status, % RootKey, % SubKey, Hidden
 
-if HiddenFiles_Status = 2
-    RegWrite, REG_DWORD, % RootKey, % SubKey, Hidden, 1 
-else 
+  if HiddenFiles_Status = 2
+    RegWrite, REG_DWORD, % RootKey, % SubKey, Hidden, 1
+  else
     RegWrite, REG_DWORD, % RootKey, % SubKey, Hidden, 2
-PostMessage, 0x111, 41504,,, ahk_id %ID%
+  PostMessage, 0x111, 41504,,, ahk_id %ID%
 Return
 
 ; Function for a quick google search
 ^+c::
-{
- Send, ^c
- Sleep 50
- Run, https://www.google.com/search?q=%clipboard%
- Return
-}
+  {
+    Send, ^c
+    Sleep 50
+    Run, https://www.google.com/search?q=%clipboard%
+    Return
+  }
 
-; Functions for volume keys
+  ; Variables
+  ;Increments 			:= 10 ; < lower for a more granular change, higher for larger jump in brightness
+  CurrentBrightness 	:= GetCurrentBrightNess()
 
-!^p::Send {Volume_Up}
-!^o::Send {Volume_Down}
-!^i::Send {Volume_Mute}
+  ; Functions for brightness control
+  ; ^+o:: ChangeBrightness( CurrentBrightness -= Increments ) ; decrease brightness
+  ^+o:: GetCurrentBrightNess()
+  ^+p:: ChangeBrightness( CurrentBrightness += Increments ) ; increase brightness
+  ;#Numpad5::     ChangeBrightness( CurrentBrightness := 50 ) ; default
+  ;#Numpad2::     ChangeBrightness( CurrentBrightness := 100 ) ; default
+
+  ; Functions for volume keys
+
+  !^p::Send {Volume_Up}
+  !^o::Send {Volume_Down}
+  !^i::Send {Volume_Mute}
 return
 
 ; Functions for maximizing, minimzing application

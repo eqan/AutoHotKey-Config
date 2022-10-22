@@ -1,4 +1,4 @@
-﻿; Utilities
+; Utilities
 #Include %A_LineFile%\..\util\vim_ahk_setting.ahk
 #Include %A_LineFile%\..\util\vim_ime.ahk
 ;#Include %A_LineFile%\..\util\AutoCorrect.ahk
