@@ -23,7 +23,7 @@ Return
 
 #x::
   try {
-    Run *RunAs wt, , max
+    Run *RunAs alacritty, , max
   } catch {
     MsgBox, Could not obtain admin privileges.
   }
@@ -64,7 +64,7 @@ return
 
 ; Function to Call the live draw
 #o::
-  Run,"E:\Softwares\Live Draw\livedraw_0.1.0_beta.exe"
+  Run,"C:\Program Files\workspacer\workspacer.exe"
 return
 
 ; Function to Call the task manager
@@ -73,24 +73,13 @@ return
 return
 
 ; Keys for windows navigation
-!h:: Send !{Left}
-!l:: Send !{Right}
+; !h:: Send !{Left}
+; !l:: Send !{Right}
 
 ; Change Brightness
 !;::RUN C:\Users\eqana\nircmd\nircmd.exe changebrightness 5
 !'::RUN C:\Users\eqana\nircmd\nircmd.exe changebrightness -5
 
-
-
-GetCurrentBrightNess()
-{
-  command := "Get-Ciminstance -Namespace root/WMI -ClassName WmiMonitorBrightness | grep 'CurrentBrightness'"
-  MsgBox % temp := ComObjCreate("WScript.Shell").Exec(command).StdOut.ReadAll()
-  ; exec := WshShell.Exec(%command%)
-  currentBrightness := RegExReplace(exec, "\D")
-  ; MsgBox, %exec%
-  return currentBrightness
-}
 
 ; Function returns list of windows
 Unique_Alt_Tab_Windows()
@@ -185,7 +174,7 @@ Return
 
   ; Functions for volume keys
 
-  !p::Send {Volume_Mute}
+  !\::Send {Volume_Mute}
   ![::Send {Volume_Up}
   !]::Send {Volume_Down}
 return
