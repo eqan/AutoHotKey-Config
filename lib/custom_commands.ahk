@@ -23,7 +23,7 @@ Return
 
 #x::
   try {
-    Run *RunAs alacritty, , max
+    Run *RunAs wt, , max
   } catch {
     MsgBox, Could not obtain admin privileges.
   }
